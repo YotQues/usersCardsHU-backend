@@ -3,7 +3,7 @@ const usersR = require("./users");
 const cardsR = require("./cards");
 
 exports.originAllow = (app) => {
-// allows recieving a payload from another domain
+// allows receiving a payload from another domain
   app.all('*', function (req, res, next) {
     if (!req.get('Origin')) return next();
 // in reality we would replace the '*' with the specific domain name
