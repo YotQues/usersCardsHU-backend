@@ -8,7 +8,6 @@ router.get("/", async (req, res) => {
     let perPage = (req.query.perPage) ? Number(req.query.perPage) : 6;
     let page = (req.query.page) ? Number(req.query.page) : 0;
     let sort = (req.query.sort) ? req.query.sort : "_id" ;
-    // מגדיר שאם מקבל ריוורס ייס יציג מהגדול לקטן ואם לא הפוך
     let reverse = (req.query.reverse == "yes") ? -1 : 1;
     let data = await CardModel.find({})
       .limit(perPage)
@@ -74,10 +73,7 @@ router.post("/", authToken , checkIfBiz, async (req, res) => {
   try {
 
     let card = new CardModel(req.body);
-    // מוסיפים מאפיין של האיי די של המשתמש
-    // לפני השמירה במסד
     card.user_id = req.tokenData._id;
-    // נייצר מספר עסק מ 1 עד 999999
     card.bizNumber = await genBizNumber(CardModel);
     await card.save();
     res.status(201).json(card);
